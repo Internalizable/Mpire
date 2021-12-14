@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import me.internalizable.musically.CoreFrame;
 import me.internalizable.musically.persistence.Song;
 import me.internalizable.musically.utilities.AudioPlayer;
@@ -59,6 +60,8 @@ public class SongPanel extends javax.swing.JPanel {
         duration = new javax.swing.JLabel();
         backIcon = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel10.setText("jLabel10");
 
@@ -73,14 +76,29 @@ public class SongPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(190, 155, 100));
         jLabel4.setText("History");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(190, 155, 100));
         jLabel5.setText("Profile");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(190, 155, 100));
         jLabel6.setText("Sign out");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -110,21 +128,21 @@ public class SongPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name)
                     .addComponent(artist)
+                    .addComponent(name)
                     .addComponent(album)
                     .addComponent(year)
                     .addComponent(duration))
-                .addGap(0, 166, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(name)
                 .addGap(18, 18, 18)
                 .addComponent(artist)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(album)
                 .addGap(18, 18, 18)
                 .addComponent(year)
@@ -146,6 +164,12 @@ public class SongPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Eclipse-1s-81px.gif"))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(190, 155, 100));
+        jLabel7.setText("Loading song preview...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,20 +183,27 @@ public class SongPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(back)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addComponent(artwork, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 112, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(artwork, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +224,14 @@ public class SongPanel extends javax.swing.JPanel {
                             .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(26, 26, 26)
                         .addComponent(artwork, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel7)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,6 +239,26 @@ public class SongPanel extends javax.swing.JPanel {
         CoreFrame.getInstance().changeView("home");
         preview.stop();
     }//GEN-LAST:event_backMouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+       
+        int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to sign out?", "Sign Out?", JOptionPane.YES_NO_OPTION);
+        
+        if (reply == JOptionPane.YES_OPTION) {
+            CoreFrame.getInstance().changeView("login");
+            preview.stop();
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        CoreFrame.getInstance().changeView("history");
+        preview.stop();
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        CoreFrame.getInstance().changeView("profile");
+        preview.stop();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel album;
@@ -211,9 +269,11 @@ public class SongPanel extends javax.swing.JPanel {
     private javax.swing.JLabel duration;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel year;
@@ -226,41 +286,43 @@ public class SongPanel extends javax.swing.JPanel {
         year.setText(song.getReleaseDate());
         duration.setText(song.getDuration());
         
-        if(song.getArtworkLink() != null) {
-            URL url;
-            Image image;
-            
-            try {
-                url = new URL(song.getArtworkLink().replace("{w}", "200").replace("{h}", "200"));
-                image = ImageIO.read(url);
-   
-                artwork.setIcon(new ImageIcon(image));
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(SongPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(SongPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        ImageIcon imageIcon = me.internalizable.musically.utilities.FileUtils.getImage(song, 200, 200);
+        
+        if(imageIcon != null)
+            artwork.setIcon(imageIcon);
         
         latestPreviewURL = song.getPreviewLink();
     }
     
     public void playPreviewIfExists() {
         
-        if(latestPreviewURL == null)
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Eclipse-1s-81px.gif")));
+        
+        if(latestPreviewURL == null) {
+            jLabel3.setVisible(false);
+            jLabel7.setVisible(false);
             return;
+        }
+            
         
         preview = new Thread(() -> {
             try {
                 
+                jLabel3.setVisible(true);
+                jLabel7.setVisible(true);
+                    
                 File downloadedFile = new File("playback");
                 
                 FileUtils.copyURLToFile(
                         new URL(latestPreviewURL),
                         downloadedFile);
                 
+                jLabel7.setVisible(false);
+                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/output-onlinegiftools.gif")));
                 AudioPlayer audioPlayer = new AudioPlayer(downloadedFile);
                 audioPlayer.run();
+                
+                jLabel3.setVisible(false);
             } catch (MalformedURLException ex) {
                 Logger.getLogger(SongPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

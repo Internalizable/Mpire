@@ -8,6 +8,7 @@ import com.google.common.hash.Hashing;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +25,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import me.internalizable.musically.CoreFrame;
 import me.internalizable.musically.persistence.Session;
 import me.internalizable.musically.persistence.Song;
+import me.internalizable.musically.utilities.FileUtils;
 
 /**
  *
@@ -46,6 +50,10 @@ public class DatabaseConnector {
         return instance;
     }
     
+    public Session getActiveSession() {
+        return activeSession;
+    }
+        
     private DatabaseConnector() {
         config.setJdbcUrl( "jdbc:mysql://localhost:3306/mpire" );
         config.setUsername( "root" );
@@ -130,7 +138,7 @@ public class DatabaseConnector {
                 long userId = rs.getLong(1);
                 
                 activeSession = new Session(userId, email, username, hashedPassword, 15);
-                
+                CoreFrame.getInstance().getProfilePanel().loadProfile();
                 return true;
             }
         } catch (SQLException ex) {
@@ -159,6 +167,7 @@ public class DatabaseConnector {
                 if(rs.getString("password").equals(hashedPassword)) {
                     activeSession = new Session(userId, email, username, hashedPassword, listenFor);
                     
+                    CoreFrame.getInstance().getProfilePanel().loadProfile();
                     loadDatabaseHistory();
                     return true;
                 }
@@ -258,22 +267,10 @@ public class DatabaseConnector {
             return;
         
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
-        activeSession.getHistory().forEach(song -> {
+           
+        activeSession.getHistory().stream().distinct().forEach(song -> {
             
-            ImageIcon icon = null;
-            
-            if(song.getArtworkLink() != null) {
-                URL url;
-                
-                try {
-                    url = new URL(song.getArtworkLink().replace("{w}", "64").replace("{h}", "64"));
-                    BufferedImage image = ImageIO.read(url);
-                    icon = new ImageIcon(image);
-                } catch (Exception ignored) {
-                    
-                }
-            }
+            ImageIcon icon = FileUtils.getImage(song, 64, 64);
             
             String songName = song.getName();
             String artist = song.getArtist();
@@ -289,5 +286,20 @@ public class DatabaseConnector {
     
     public void signOut() {
         this.activeSession = null;
+    }
+
+    public void changeListenFor(int value) {
+          try (Connection con = getConnection()) {
+            String query = "UPDATE USERS SET listenFor=? WHERE id=?";
+
+            PreparedStatement prep = con.prepareStatement(query);
+            prep.setInt(1, value);
+            prep.setLong(2, activeSession.getId());
+            prep.executeUpdate();
+            
+            activeSession.setListenFor(value);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }       
     }
 }

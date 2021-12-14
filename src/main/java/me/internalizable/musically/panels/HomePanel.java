@@ -78,6 +78,11 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(190, 155, 100));
         jLabel5.setText("Profile");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(190, 155, 100));
@@ -150,7 +155,7 @@ public class HomePanel extends javax.swing.JPanel {
         Thread stopper = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(DatabaseConnector.getInstance().getActiveSession().getListenFor() * 1000);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -198,6 +203,10 @@ public class HomePanel extends javax.swing.JPanel {
             CoreFrame.getInstance().changeView("login");
         }
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        CoreFrame.getInstance().changeView("profile");
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

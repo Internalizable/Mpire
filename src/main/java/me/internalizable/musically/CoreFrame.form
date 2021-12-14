@@ -72,5 +72,12 @@
         </Constraint>
       </Constraints>
     </Component>
+    <Component class="me.internalizable.musically.panels.ProfilePanel" name="profile">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+          <CardConstraints cardName="profile"/>
+        </Constraint>
+      </Constraints>
+    </Component>
   </SubComponents>
 </Form>

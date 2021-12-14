@@ -4,6 +4,7 @@
  */
 package me.internalizable.musically.panels;
 
+import java.io.File;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import me.internalizable.musically.CoreFrame;
@@ -61,7 +62,7 @@ public class SplashPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -76,6 +77,8 @@ public class SplashPanel extends javax.swing.JPanel {
         Random r = new Random();
          
         DatabaseConnector.getInstance().initializeTables();
+        File dataFolder = new File("data");
+        dataFolder.mkdirs();
         
         while(jProgressBar1.getValue() < 100) {
             int random = ThreadLocalRandom.current().nextInt(1, 6);

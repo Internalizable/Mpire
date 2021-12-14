@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import me.internalizable.musically.panels.HistoryPanel;
 import me.internalizable.musically.panels.HomePanel;
 import me.internalizable.musically.panels.LoginPanel;
+import me.internalizable.musically.panels.ProfilePanel;
 import me.internalizable.musically.panels.RecordingPanel;
 import me.internalizable.musically.panels.RegisterPanel;
 import me.internalizable.musically.panels.SongPanel;
@@ -56,6 +57,7 @@ public class CoreFrame extends javax.swing.JFrame {
         recording = new me.internalizable.musically.panels.RecordingPanel();
         song = new me.internalizable.musically.panels.SongPanel();
         history = new me.internalizable.musically.panels.HistoryPanel();
+        profile = new me.internalizable.musically.panels.ProfilePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -66,6 +68,7 @@ public class CoreFrame extends javax.swing.JFrame {
         getContentPane().add(recording, "recording");
         getContentPane().add(song, "song");
         getContentPane().add(history, "history");
+        getContentPane().add(profile, "profile");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -74,34 +77,8 @@ public class CoreFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-       
-        /*
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CoreFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CoreFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CoreFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CoreFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        */
         FlatDarculaLaf.setup();
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 CoreFrame cF = new CoreFrame();
@@ -122,6 +99,7 @@ public class CoreFrame extends javax.swing.JFrame {
     private me.internalizable.musically.panels.HistoryPanel history;
     private me.internalizable.musically.panels.HomePanel home;
     private me.internalizable.musically.panels.LoginPanel login;
+    private me.internalizable.musically.panels.ProfilePanel profile;
     private me.internalizable.musically.panels.RecordingPanel recording;
     private me.internalizable.musically.panels.RegisterPanel register;
     private me.internalizable.musically.panels.SongPanel song;
@@ -159,5 +137,9 @@ public class CoreFrame extends javax.swing.JFrame {
     
     public HistoryPanel getHistoryPanel() {
         return history;
+    }
+    
+    public ProfilePanel getProfilePanel() {
+        return profile;
     }
 }
